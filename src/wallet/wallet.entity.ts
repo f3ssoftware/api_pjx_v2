@@ -1,5 +1,5 @@
 
-import { UUID } from 'crypto';
+
 import { Entity, Column, PrimaryGeneratedColumn, AfterInsert, AfterUpdate, AfterRemove } from 'typeorm';
 
 @Entity()
@@ -14,9 +14,9 @@ export class Wallet {
     name: string;
     @Column()
     user_id: string;
-    @Column()
+    @Column({ type: 'datetime' })
     create_at: Date;
-    @Column()
+    @Column({ type: 'datetime' })
     updated_at: Date;
 
     @AfterInsert()
