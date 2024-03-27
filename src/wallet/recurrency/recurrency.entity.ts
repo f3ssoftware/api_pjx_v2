@@ -1,6 +1,6 @@
 
 import { FrequencyType } from 'src/wallet/enums/frequency-type.enum';
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 import { Wallet } from '../wallet.entity';
 
 @Entity()
@@ -25,8 +25,8 @@ export class Recurrency {
     reference: string
     @Column()
     type: RecurrencyType;
-    @Column()
-    walled_id: Wallet;
+    @ManyToOne(() => Wallet, wallet => wallet.recurrencies)
+    wallet: Wallet;
     @Column()
     create_at: Date;
     @Column()

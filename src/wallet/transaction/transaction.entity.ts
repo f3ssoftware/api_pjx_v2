@@ -1,7 +1,8 @@
 
-import { Entity, Column, PrimaryGeneratedColumn, Decimal128} from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, Decimal128, OneToOne, JoinColumn} from 'typeorm';
 import { Group } from '../group/group.entity';
 import { Wallet } from '../wallet.entity';
+import { Installment } from '../installment/installment.entity';
 
 @Entity()
 export class Transaction{
@@ -15,10 +16,17 @@ export class Transaction{
     fee_amount: number;
     @Column({ type: 'decimal', precision: 10, scale: 3 })
     fine_amount: number;
-    @Column()
+    
+    @OneToOne(() => Group, group_id => group_id.transaction)
     group_id: Group;
-    @Column()
-    wallet_id: Wallet;
+
+    @OneToOne(() => Wallet, wallet => wallet.transaction)
+    wallet: Wallet;
+    
+    @OneToOne(() => Installment)
+    @JoinColumn()
+    installment: Installment;
+
     @Column({ type: 'datetime' })
     created_at: Date;
     @Column({ type: 'datetime' })

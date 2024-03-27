@@ -1,6 +1,8 @@
 
 
-import { Entity, Column, PrimaryGeneratedColumn, AfterInsert, AfterUpdate, AfterRemove } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, AfterInsert, AfterUpdate, AfterRemove, OneToMany, OneToOne, Transaction, JoinColumn } from 'typeorm';
+import { Recurrency } from './recurrency/recurrency.entity';
+import { Group } from './group/group.entity';
 
 @Entity()
 export class Wallet {
@@ -18,6 +20,18 @@ export class Wallet {
     create_at: Date;
     @Column({ type: 'datetime' })
     updated_at: Date;
+
+    @OneToMany(() => Recurrency, recurrency => recurrency.wallet)
+    @JoinColumn()
+    recurrencies: Recurrency[];
+
+    @OneToMany(() => Group, groups => groups.wallet)
+    @JoinColumn()
+    groups: Group[];
+
+    @OneToOne(() => Transaction)
+    @JoinColumn()
+    transaction: Transaction;
 
     @AfterInsert()
     logInsert() {
