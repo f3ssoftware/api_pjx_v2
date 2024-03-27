@@ -1,30 +1,22 @@
 
-import { Entity, Column, PrimaryGeneratedColumn, AfterInsert, AfterUpdate, AfterRemove } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, AfterInsert, AfterUpdate, AfterRemove, OneToMany, OneToOne } from 'typeorm';
+import { Product } from './product/product.entity';
+import { CartHasProduct } from './cart_has_product/cart_has_product.entity';
 
 @Entity()
 export class Cart {
     @PrimaryGeneratedColumn('uuid')
     id: string;
+
     @Column()
     user_id: string;
+
     @Column()
     create_at: Date;
+
     @Column()
     updated_at: Date;
 
-    @AfterInsert()
-    logInsert() {
-        console.log('Inserted id with id', this.id)
-    }
-
-    @AfterUpdate()
-    logUpdate() {
-        console.log('Updated id with id', this.id)
-    }
-
-    @AfterRemove()
-    logRemove() {
-        console.log('Removed id with id', this.id)
-    }
-
+    @OneToOne(() => CartHasProduct, cartHasProduct => cartHasProduct.cart)
+    cartHasProduct: CartHasProduct;
 }

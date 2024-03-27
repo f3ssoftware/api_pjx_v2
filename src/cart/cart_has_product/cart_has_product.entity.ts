@@ -1,5 +1,5 @@
 
-import { Entity, Column, PrimaryGeneratedColumn, AfterInsert, AfterUpdate, AfterRemove } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, AfterInsert, AfterUpdate, AfterRemove, OneToMany, OneToOne, JoinColumn } from 'typeorm';
 import { Cart } from '../cart.entity';
 import { Product } from '../product/product.entity';
 
@@ -7,11 +7,14 @@ import { Product } from '../product/product.entity';
 export class CartHasProduct {
     @PrimaryGeneratedColumn('uuid')
     id: string;
-    @Column()
-    cart_id: Cart;
-    @Column()
-    product_id: Product;
+
+    @OneToOne(() => Cart, cart => cart.cartHasProduct)
+    @JoinColumn()
+    cart: Cart;
+
+    @OneToMany(() => Product, product => product.cartHasProducts)
+    product: Product;
+
     @Column()
     user_id: string;
-
 }
