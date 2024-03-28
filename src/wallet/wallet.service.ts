@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { FindOneOptions, Repository } from 'typeorm';
 import { Wallet } from './wallet.entity';
 
 @Injectable()
@@ -20,7 +20,8 @@ export class WalletService {
     }
 
     async findOne(id: string): Promise<Wallet> {
-        const wallet = await this.walletRepository.findOne(id);
+        const options: FindOneOptions<Wallet> = { where: { id } };
+        const wallet = await this.walletRepository.findOne(options);
         if (!wallet) {
             throw new NotFoundException('Wallet not found');
         }
