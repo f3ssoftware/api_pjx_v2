@@ -20,8 +20,8 @@ export class WalletService {
     }
 
     async findOne(id: string): Promise<Wallet> {
-        const options: FindOneOptions<Wallet> = { where: { id } };
-        const wallet = await this.walletRepository.findOne(options);
+        const walletId: FindOneOptions<Wallet> = { where: { id } };
+        const wallet = await this.walletRepository.findOne(walletId);
         if (!wallet) {
             throw new NotFoundException('Wallet not found');
         }
