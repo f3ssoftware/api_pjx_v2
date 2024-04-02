@@ -9,7 +9,6 @@ export class CartHasProduct {
     id: string;
 
     @OneToOne(() => Cart, cart => cart.cartHasProduct)
-    @JoinColumn()
     cart: Cart;
 
     @OneToMany(() => Product, product => product.cartHasProducts)
