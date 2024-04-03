@@ -25,8 +25,8 @@ export class Recurrency {
     reference: string
     @Column()
     type: RecurrencyType;
-    @ManyToOne(() => Wallet, wallet => wallet.recurrencies)
-    wallet: Wallet;
+    // @ManyToOne(() => Wallet, wallet => wallet.recurrencies)
+    // wallet: Wallet;
     @Column()
     create_at: Date;
     @Column()

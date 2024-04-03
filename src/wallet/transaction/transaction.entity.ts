@@ -20,8 +20,8 @@ export class Transaction{
     @OneToOne(() => Group, group_id => group_id.transaction)
     group_id: Group;
 
-    @OneToOne(() => Wallet, wallet => wallet.transaction)
-    wallet: Wallet;
+    // @OneToOne(() => Wallet, wallet => wallet.transaction)
+    // wallet: Wallet;
     
     @OneToOne(() => Installment)
     @JoinColumn()

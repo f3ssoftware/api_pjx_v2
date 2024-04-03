@@ -7,7 +7,7 @@ export class WalletController {
     constructor(private readonly walletService: WalletService) {}
 
     @Post()
-    create(@Body() walletData: Partial<Wallet>): Promise<Wallet> {
+    create(@Body() walletData: Wallet): Promise<Wallet> {
         return this.walletService.create(walletData);
     }
 
@@ -29,5 +29,10 @@ export class WalletController {
     @Delete(':id')
     remove(@Param('id') id: string): Promise<void> {
         return this.walletService.remove(id);
+    }
+
+    @Delete()
+    removeAll(): Promise<void> {
+        return this.walletService.removeAll();
     }
 }

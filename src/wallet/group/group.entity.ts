@@ -13,8 +13,8 @@ export class Group {
     @Column()
     color: string;
 
-    @ManyToOne(() => Wallet, wallet => wallet.groups)
-    wallet: Wallet;
+    // @ManyToOne(() => Wallet, wallet => wallet.groups)
+    // wallet: Wallet;
 
     @Column()
     create_at: Date;

@@ -12,7 +12,9 @@ export class WalletService {
 
     async create(walletData: Partial<Wallet>): Promise<Wallet> {
         const wallet = this.walletRepository.create(walletData);
+        console.log(walletData)
         return await this.walletRepository.save(wallet);
+        
     }
 
     async findAll(): Promise<Wallet[]> {
@@ -36,5 +38,9 @@ export class WalletService {
     async remove(id: string): Promise<void> {
         const wallet = await this.findOne(id);
         await this.walletRepository.remove(wallet);
+    }
+
+    async removeAll(): Promise<void> {
+        await this.walletRepository.delete({});
     }
 }
