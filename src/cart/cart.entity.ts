@@ -1,5 +1,5 @@
 
-import { Entity, Column, PrimaryGeneratedColumn, AfterInsert, AfterUpdate, AfterRemove, OneToMany, OneToOne } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, AfterInsert, AfterUpdate, AfterRemove, OneToMany, OneToOne, JoinColumn } from 'typeorm';
 import { Product } from './product/product.entity';
 import { CartHasProduct } from './cart_has_product/cart_has_product.entity';
 
@@ -18,5 +18,6 @@ export class Cart {
     updated_at: Date;
 
     @OneToOne(() => CartHasProduct, cartHasProduct => cartHasProduct.cart)
+    @JoinColumn()
     cartHasProduct: CartHasProduct;
 }
