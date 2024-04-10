@@ -10,12 +10,14 @@ export class WalletService {
         private readonly walletRepository: Repository<Wallet>,
     ) {}
 
-    async create(walletData: Partial<Wallet>): Promise<Wallet> {
+    create(walletData: Partial<Wallet>): Promise<Wallet> {
         const wallet = this.walletRepository.create(walletData);
-        console.log(walletData)
-        return await this.walletRepository.save(wallet);
+        console.log(walletData, wallet)
+        return this.walletRepository.save(wallet);
         
     }
+
+    
 
     async findAll(): Promise<Wallet[]> {
         return await this.walletRepository.find();

@@ -33,19 +33,19 @@ export class Wallet {
     // @JoinColumn()
     // transaction: Transaction;
 
-    @AfterInsert()
-    logInsert() {
-        console.log('Inserted id with id', this.id, 'name with name: ', this.name)
-    }
+    // @AfterInsert()
+    // logInsert() {
+    //     console.log('Inserted id with id', this.id, 'name with name: ', this.name)
+    // }
 
-    @AfterUpdate()
-    logUpdate() {
-        console.log('Updated id with id', this.id)
-    }
+    // @AfterUpdate()
+    // logUpdate() {
+    //     console.log('Updated id with id', this.id)
+    // }
 
-    @AfterRemove()
-    logRemove() {
-        console.log('Removed id with id', this.id)
-    }
+    // @AfterRemove()
+    // logRemove() {
+    //     console.log('Removed id with id', this.id)
+    // }
 
 }
