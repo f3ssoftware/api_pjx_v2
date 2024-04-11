@@ -12,7 +12,7 @@ export class WalletService {
 
     create(walletData: Partial<Wallet>): Promise<Wallet> {
         const wallet = this.walletRepository.create(walletData);
-        console.log(walletData, wallet)
+    
         return this.walletRepository.save(wallet);
         
     }
