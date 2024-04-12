@@ -139,6 +139,11 @@ describe('WalletService', () => {
     const result = await walletService.update(walletId, updatedWalletData);
 
     expect(result).toEqual({ ...existingWallet, ...updatedWalletData });
+     //Here I'll do test for create_at and updated_at only to have 100% of test coverage for the entity Wallet
+     expect(result.create_at).toBeDefined();
+     expect(result.create_at).toBeInstanceOf(Date);
+     expect(result.updated_at).toBeDefined();
+     expect(result.updated_at).toBeInstanceOf(Date)
   });
 
   describe('remove', () => {
@@ -154,27 +159,28 @@ describe('WalletService', () => {
         updated_at: new Date(),
         name: 'ronaldo',
       };
-
-      walletService.findOne = jest.fn().mockReturnValue(existingWallet);
-      walletService.remove = jest.fn();
-
+  
+      jest.spyOn(walletService, 'findOne').mockResolvedValue(existingWallet);
+      jest.spyOn(walletRepository, 'remove').mockResolvedValue(undefined); // Espione o método remove do repositório
+  
       // Act
       await walletService.remove(walletId);
-
-      // // Assert
-      expect(walletService.remove).toHaveBeenCalledWith(walletId);
-      expect(walletService.remove(walletId)).toBeUndefined();
+  
+      // Assert
+      expect(walletRepository.remove).toHaveBeenCalledWith(existingWallet);
+      
     });
-
+  
     it('should throw NotFoundException for non-existing wallet', async () => {
       // Arrange
       const walletId = 'non-existing-wallet-id';
-      walletService.findOne = jest.fn().mockRejectedValue(new NotFoundException('Wallet not found'));
-
+      jest.spyOn(walletService, 'findOne').mockRejectedValue(new NotFoundException('Wallet not found'));
+  
       // Act and Assert
       await expect(walletService.remove(walletId)).rejects.toThrow(NotFoundException);
     });
   });
+  
 
   
   it('should remove all wallets', async () => {
@@ -186,6 +192,8 @@ describe('WalletService', () => {
     expect(deleteSpy).toHaveBeenCalledWith({});
     expect(result).toBeUndefined()
   });
+
+  
 
 });
 

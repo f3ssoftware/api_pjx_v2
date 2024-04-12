@@ -17,8 +17,6 @@ export class WalletService {
         
     }
 
-    
-
     async findAll(): Promise<Wallet[]> {
         return await this.walletRepository.find();
     }
